@@ -33,7 +33,7 @@ export class ContactForm extends Component {
         }
 
         render() {
-         const { name, number } = this.state;
+        const { name, number } = this.state;
     
             return (
                 <form onSubmit={this.handelSubmit}>
