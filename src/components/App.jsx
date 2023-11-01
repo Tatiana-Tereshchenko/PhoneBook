@@ -15,6 +15,20 @@ export class App extends Component   {
     filter: ''
   }
 
+  componentDidMount() {
+    const savedContacts = localStorage.getItem('contacts');
+    if (savedContacts) {
+      this.setState({contacts: JSON.parse(savedContacts)})
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { contacts } = this.state;
+    if (prevState.contacts !== contacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts))
+    }
+  }
+
   handelAddContact = (newContact) => {
     const { contacts } = this.state;
     const isDublicate = contacts.some(
@@ -28,6 +42,7 @@ export class App extends Component   {
           contacts: [...prevState.contacts, newContact]
         }))
     }
+    localStorage.setItem('contacts', JSON.stringify(newContact))
   }
   handleFilterChange = (event) => {
     this.setState({ filter: event.target.value });
